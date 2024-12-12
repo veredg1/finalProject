@@ -1,0 +1,5 @@
+https://en.cppreference.com/w/c/variadic  - used to properly make variadic functions
+https://en.wikipedia.org/wiki/Variadic_function#In_C
+https://www.geeksforgeeks.org/c-library-function-putc/
+https://www.geeksforgeeks.org/putchar-function-in-c/
+
