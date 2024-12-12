@@ -3,4 +3,5 @@ project(finalProject C)
 
 set(CMAKE_C_STANDARD 23)
 
-add_executable(finalProject main.c)
+add_executable(finalProject main.c
+        myprintf.c)
