@@ -49,8 +49,8 @@ cmake_ninja_workdir = /home/gottlieb/CLionProjects/finalProject/cmake-build-debu
 
 build cmake_object_order_depends_target_finalProject: phony || .
 
-build CMakeFiles/finalProject.dir/main.c.o: C_COMPILER__finalProject_unscanned_Debug /home/gottlieb/CLionProjects/finalProject/main.c || cmake_object_order_depends_target_finalProject
-  DEP_FILE = CMakeFiles/finalProject.dir/main.c.o.d
+build CMakeFiles/finalProject.dir/testmyprintf.c.o: C_COMPILER__finalProject_unscanned_Debug /home/gottlieb/CLionProjects/finalProject/testmyprintf.c || cmake_object_order_depends_target_finalProject
+  DEP_FILE = CMakeFiles/finalProject.dir/testmyprintf.c.o.d
   FLAGS = -g -std=gnu2x -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles/finalProject.dir
   OBJECT_FILE_DIR = CMakeFiles/finalProject.dir
@@ -69,7 +69,7 @@ build CMakeFiles/finalProject.dir/myprintf.c.o: C_COMPILER__finalProject_unscann
 #############################################
 # Link the executable finalProject
 
-build finalProject: C_EXECUTABLE_LINKER__finalProject_Debug CMakeFiles/finalProject.dir/main.c.o CMakeFiles/finalProject.dir/myprintf.c.o
+build finalProject: C_EXECUTABLE_LINKER__finalProject_Debug CMakeFiles/finalProject.dir/testmyprintf.c.o CMakeFiles/finalProject.dir/myprintf.c.o
   FLAGS = -g
   OBJECT_DIR = CMakeFiles/finalProject.dir
   POST_BUILD = :
