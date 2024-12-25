@@ -4,13 +4,45 @@
 
 #include<stdio.h>
 #include<stdarg.h>
+#include <string.h>
 
-myprintf(const char * format, ... ) {
+void myprintf(const char * format, ... ) {
     va_list args;
     va_start(args,format);
 
-    va_end(args,format);
+
+    while (*format != '\0') {
+
+        if (*format == 'd') {
+            int intArg = va_arg(args,int);
+            putc_unlocked((int)intArg,stdout);
 
 
 
+
+           
+
+        }
+        else if (*format == 'c') {
+            int charArg = va_arg(args,int);
+            putchar(charArg);
+
+
+
+        }
+        ++format;
+
+    }
+
+    va_end(args);
+
+
+    }
+
+ 
+
+
+
+int main(void) {
+    myprintf("%d %d",50,33);
 }
