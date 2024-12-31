@@ -45,6 +45,7 @@ void myprintf(const char * format, ... ) {
         else if (format == "%x") {
 
         }
+
         //while current character of format we are looking at isn't null, meaning that we haven't reahed the end of the format string yet
         else {
             if (*format == '%' && !(wasPercent)) { //first sign of a modifier
