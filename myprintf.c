@@ -22,7 +22,7 @@ void myprintf(const char * format, ... ) {
     //need to implement my own stuff. arrays, binary
 
     while (*format != '\0') {
-        if (format == "%d") { // works if the integer is less than 10
+        if (format == "%d") { // works!!!!
             int intArg = va_arg(args,int);
             int intArgCopy = intArg;
             int intLength = 0;
@@ -48,10 +48,6 @@ void myprintf(const char * format, ... ) {
 
 
 
-
-
-
-
         }
 
         else if (format == "%c") {
@@ -65,7 +61,79 @@ void myprintf(const char * format, ... ) {
 
             puts(strArg); //prints out the string
         }
-        else if (format == "%x") {
+        else if (format == "%x") { //works
+            int intArg = va_arg(args,int);
+            int intArgCopy = intArg;
+            int intLength = 0;
+            while (intArg!= 0) {
+
+                intArg = intArg / 16;
+                intLength ++;
+
+            }
+
+            char printVal [intLength];
+
+            for (int i = intLength - 1; i > -1; i--) {
+                int intVal =  (intArgCopy % 16);
+
+                char charVal;
+                switch (intVal) {
+                    case 0:
+                        case 1:
+                    case 2 :
+                    case 3:
+                    case 4:
+                    case 5:
+                    case 6:
+                    case 7 :
+                    case 8:
+                    case 9:
+
+                        charVal = intVal + '0';
+                        break;
+
+                    case 10:
+                    {
+                        charVal = 'A';
+                        break;
+                    }
+                    case 11: {
+                        charVal = 'B';
+                        break;
+                    }
+                    case 12: {
+                        charVal = 'C';
+                        break;
+                    }
+                    case 13: {
+                        charVal = 'D';
+                        break;
+                    }
+                    case 14: {
+                        charVal = 'E';
+                        break;
+                    }
+                    case 15: {
+                        charVal = 'F';
+                        break;
+                    }
+
+
+
+                }
+
+
+                printVal[i] = charVal;
+                intArgCopy = intArgCopy / 16;
+
+            }
+
+              for (int i = 0; i < intLength; i++)
+              {
+                  putchar(printVal[i]);
+            }
+
 
         }
 
@@ -117,6 +185,9 @@ int main(void) {
     myprintf("%s","hello my naejfewwef");
     myprintf("%d",9);
     myprintf("%d",123);
+    myprintf("%x",12);
+    myprintf("%x", 12312);
+    myprintf("%x",42);
 
 
 
