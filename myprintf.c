@@ -24,9 +24,32 @@ void myprintf(const char * format, ... ) {
     while (*format != '\0') {
         if (format == "%d") { // works if the integer is less than 10
             int intArg = va_arg(args,int);
-            char printval = intArg + '0';
+            int intArgCopy = intArg;
+            int intLength = 0;
+            while (intArg!= 0) {
 
-            putchar(printval);
+               intArg = intArg / 10;
+                intLength ++;
+
+            }
+            char printVal [intLength];
+            for (int i = intLength - 1; i > -1; i--) {
+                int intVal =  (intArgCopy % 10);
+                char charVal = intVal + '0';
+
+                printVal[i] = charVal;
+                intArgCopy = intArgCopy / 10;
+            }
+            for (int i = 0; i < intLength; i++) {
+                putchar(printVal[i]);
+            }
+
+
+
+
+
+
+
 
 
         }
@@ -93,6 +116,8 @@ int main(void) {
     myprintf("%c",'A');
     myprintf("%s","hello my naejfewwef");
     myprintf("%d",9);
+    myprintf("%d",123);
+
 
 
 }
