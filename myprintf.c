@@ -18,27 +18,19 @@ void myprintf(const char * format, ... ) {
     _Bool wasFormat = 0; //figure out if the last thing was a formatter
     _Bool isBackSlash = 0; // if it's a backslash that might need to work properly to modify certain things
 
-    //if (format == "%d") { // works if the integer is less than 10
-       // int intArg = va_arg(args,int);
-        // char printval = intArg + '0';
-        //putchar(printval);
+    if (format == "%d") { // works if the integer is less than 10
+       int intArg = va_arg(args,int);
+        char printval = intArg + '0';
+
+        putchar(printval);
 
 
-    //}
+    }
 
-     if (format == "%c") {
+     else if (format == "%c") {
          int charArg = va_arg(args,int);
          putchar(charArg);
      }
-    // else if (format == "%d") { //survey says I hate ints
-    //     int intArg = va_arg(args,int);
-    //
-    //     char  printval[] = ;
-    //
-    //
-    //     puts(printval);
-    //     }
-         // some research shows that apparently this is how you can convert a character to an int
 
 
     else if (format == "%s") { // seems to work
@@ -100,9 +92,10 @@ void myprintf(const char * format, ... ) {
 
 
 int main(void) {
-   // myprintf("%d %d",50,33);
+   myprintf("%d %d",50,33);
     myprintf("%c",'A');
     myprintf("%s","hello my naejfewwef");
+    myprintf("%d",9);
 
 
 }

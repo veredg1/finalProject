@@ -2,4 +2,6 @@ https://en.cppreference.com/w/c/variadic  - used to properly make variadic funct
 https://en.wikipedia.org/wiki/Variadic_function#In_C
 https://www.geeksforgeeks.org/c-library-function-putc/
 https://www.geeksforgeeks.org/putchar-function-in-c/
+https://linux.die.net/man/3/printf
+https://post.bytes.com/forum/topic/c/527675-printing-a-integer-variable-using-putchar
 
