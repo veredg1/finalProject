@@ -26,23 +26,41 @@ void myprintf(const char * format, ... ) {
             int intArg = va_arg(args,int);
             int intArgCopy = intArg;
             int intLength = 0;
+            _Bool isNegative = 0;
+
+            if (intArg < 0) {
+                isNegative = 1;
+                intArg = intArg *  -1;
+                intArgCopy = intArgCopy * -1;
+
+            }
+
+
             while (intArg!= 0) {
 
-               intArg = intArg / 10;
+
+                intArg = intArg / 10;
                 intLength ++;
 
             }
             char printVal [intLength];
+
             for (int i = intLength - 1; i > -1; i--) {
+
                 int intVal =  (intArgCopy % 10);
                 char charVal = intVal + '0';
+
 
                 printVal[i] = charVal;
                 intArgCopy = intArgCopy / 10;
             }
+            if (isNegative) {
+                putchar('-');
+            }
             for (int i = 0; i < intLength; i++) {
                 putchar(printVal[i]);
             }
+            wasPercent = 0;
 
 
 
@@ -56,83 +74,13 @@ void myprintf(const char * format, ... ) {
         }
 
 
-        else if (format == "%s") { // seems to work
+        else if (format == "%s")
+            { // seems to work
             char * strArg = va_arg(args,char*); // gets the string
 
             puts(strArg); //prints out the string
         }
         else if (format == "%x") { //works
-            int intArg = va_arg(args,int);
-            int intArgCopy = intArg;
-            int intLength = 0;
-            while (intArg!= 0) {
-
-                intArg = intArg / 16;
-                intLength ++;
-
-            }
-
-            char printVal [intLength];
-
-            for (int i = intLength - 1; i > -1; i--) {
-                int intVal =  (intArgCopy % 16);
-
-                char charVal;
-                switch (intVal) {
-                    case 0:
-                        case 1:
-                    case 2 :
-                    case 3:
-                    case 4:
-                    case 5:
-                    case 6:
-                    case 7 :
-                    case 8:
-                    case 9:
-
-                        charVal = intVal + '0';
-                        break;
-
-                    case 10:
-                    {
-                        charVal = 'A';
-                        break;
-                    }
-                    case 11: {
-                        charVal = 'B';
-                        break;
-                    }
-                    case 12: {
-                        charVal = 'C';
-                        break;
-                    }
-                    case 13: {
-                        charVal = 'D';
-                        break;
-                    }
-                    case 14: {
-                        charVal = 'E';
-                        break;
-                    }
-                    case 15: {
-                        charVal = 'F';
-                        break;
-                    }
-
-
-
-                }
-
-
-                printVal[i] = charVal;
-                intArgCopy = intArgCopy / 16;
-
-            }
-
-              for (int i = 0; i < intLength; i++)
-              {
-                  putchar(printVal[i]);
-            }
 
 
         }
@@ -145,24 +93,133 @@ void myprintf(const char * format, ... ) {
             }
 
             if (wasPercent ) {
-                //
-
 
                 if (*format == 'd') {
-                    int intArg = va_arg(args,int);
-                    //putchar(intArg); // this isn't working. supposed to take the argument associated with this format
-                    wasPercent = 0; //this format is ended
 
+                    int intArg = va_arg(args,int);
+                    int intArgCopy = intArg;
+                    int intLength = 0;
+                    _Bool isNegative = 0;
+                    if (intArg < 0) {
+                        isNegative = 1;
+                        intArg = intArg *  -1;
+                        intArgCopy = intArgCopy * -1;
+
+                    }
+
+
+                    while (intArg!= 0) {
+
+
+                        intArg = intArg / 10;
+                        intLength ++;
+
+                    }
+                    char printVal [intLength];
+
+                    for (int i = intLength - 1; i > -1; i--) {
+
+                        int intVal =  (intArgCopy % 10);
+                        char charVal = intVal + '0';
+
+
+                        printVal[i] = charVal;
+                        intArgCopy = intArgCopy / 10;
+                    }
+                    if (isNegative) {
+                        putchar('-');
+                    }
+                    for (int i = 0; i < intLength; i++) {
+                        putchar(printVal[i]);
+                    }
+                    wasPercent = 0;
                 }
                 else if (*format == 'c') {
                     int charArg = va_arg(args,int);
-                    putchar(charArg); // this is good
+                    putchar(charArg);
                     wasPercent = 0; // this format is ended, look at the next one
 
                 }
                 else if (*format == 's') {
-                    int strArg = va_arg(args,int);
+                    char * strArg = va_arg(args,char*); // gets the string
+                    puts(strArg); //prints out the string
+                    wasPercent = 0;
 
+                }
+                else if (*format == 'x') {
+                    int intArg = va_arg(args,int);
+                    int intArgCopy = intArg;
+                    int intLength = 0;
+                    while (intArg!= 0) {
+
+                        intArg = intArg / 16;
+                        intLength ++;
+
+                    }
+
+                    char printVal [intLength];
+
+                    for (int i = intLength - 1; i > -1; i--) {
+                        int intVal =  (intArgCopy % 16);
+
+                        char charVal;
+                        switch (intVal) {
+                            case 0:
+                                case 1:
+                            case 2 :
+                            case 3:
+                            case 4:
+                            case 5:
+                            case 6:
+                            case 7 :
+                            case 8:
+                            case 9:
+
+                                charVal = intVal + '0';
+                            break;
+
+                            case 10:
+                            {
+                                charVal = 'A';
+                                break;
+                            }
+                            case 11: {
+                                charVal = 'B';
+                                break;
+                            }
+                            case 12: {
+                                charVal = 'C';
+                                break;
+                            }
+                            case 13: {
+                                charVal = 'D';
+                                break;
+                            }
+                            case 14: {
+                                charVal = 'E';
+                                break;
+                            }
+                            case 15: {
+                                charVal = 'F';
+                                break;
+                            }
+
+
+
+                        }
+
+
+                        printVal[i] = charVal;
+                        intArgCopy = intArgCopy / 16;
+
+                    }
+
+                    for (int i = 0; i < intLength; i++)
+                    {
+                        putchar(printVal[i]);
+                    }
+
+                    wasPercent = 0;
                 }
             }
         }
@@ -180,7 +237,9 @@ void myprintf(const char * format, ... ) {
 
 
 int main(void) {
+
    myprintf("%d %d",50,33);
+    myprintf("%d",-123);
     myprintf("%c",'A');
     myprintf("%s","hello my naejfewwef");
     myprintf("%d",9);
