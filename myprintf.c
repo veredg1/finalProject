@@ -4,46 +4,89 @@
 
 #include<stdio.h>
 #include<stdarg.h>
-#include <string.h>
+
+
 
 void myprintf(const char * format, ... ) {
     va_list args;
     va_start(args,format);
 
+    // print formatting %[flags][width][.precision][length]specifier
+
+
     _Bool wasPercent = 0; // start looking for formatters if a % is found.
     _Bool wasFormat = 0; //figure out if the last thing was a formatter
     _Bool isBackSlash = 0; // if it's a backslash that might need to work properly to modify certain things
-    
 
-    while (*format != '\0') {
+    //if (format == "%d") {
 
-        printf("%c\n",*format);
+    //}
+
+     if (format == "%c") {
+         int charArg = va_arg(args,int);
+         putchar(charArg);
+     }
+    // else if (format == "%d") { //survey says I hate ints
+    //     int intArg = va_arg(args,int);
+    //
+    //     char  printval[] = ;
+    //
+    //
+    //     puts(printval);
+    //     }
+         // some research shows that apparently this is how you can convert a character to an int
 
 
-        if (*format == '%' && !(wasPercent)) { //first sign of a modifier
-            wasPercent = 1;
+    else if (format == "%s") { // seems to work
+        char * strArg = va_arg(args,char*); // gets the string
+
+        puts(strArg); //prints out the string
+    }
+    else if (format == "%x") {
+
+    }
+    //need to implement my own stuff. arrays, binary
+     else {
+        while (*format != '\0') {
+            //while current character of format we are looking at isn't null, meaning that we haven't reahed the end of the format string yet
+
+
+            if (*format == '%' && !(wasPercent)) { //first sign of a modifier
+                wasPercent = 1;
+
+            }
+
+            if (wasPercent ) {
+                //
+
+
+                if (*format == 'd') {
+                    int intArg = va_arg(args,int);
+                    //putchar(intArg); // this isn't working. supposed to take the argument associated with this format
+                    wasPercent = 0; //this format is ended
+
+                }
+                else if (*format == 'c') {
+                    int charArg = va_arg(args,int);
+                    putchar(charArg); // this is good
+                    wasPercent = 0; // this format is ended, look at the next one
+
+                }
+                else if (*format == 's') {
+                    int strArg = va_arg(args,int);
+
+                }
+            }
+
+            // check modifiers and if the last thing was a format.
+            ++format;
+
+
         }
-        if (*format == 'd' && wasPercent) { // then check for later modifiers
-            int intArg = va_arg(args,int);
-            putchar(intArg);
-            wasFormat = 1;
-            wasPercent = 0;
-
-        }
-        else if (*format == 'c' && wasPercent) { // then check for existing modifiers
-            int charArg = va_arg(args,int);
-            putchar(charArg);
-            wasFormat = 1;
-            wasPercent = 0;
-
-
-        }
-        // check modifiers and if the last thing was a format.
-        ++format;
-
     }
 
     va_end(args);
+
 
 
     }
@@ -53,5 +96,9 @@ void myprintf(const char * format, ... ) {
 
 
 int main(void) {
-    myprintf("%d %d",50,33);
+   // myprintf("%d %d",50,33);
+    //myprintf("%c",'A');
+    myprintf("%s","hello my naejfewwef");
+
+
 }
