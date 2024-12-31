@@ -4,7 +4,7 @@
 
 #include<stdio.h>
 #include<stdarg.h>
-
+#include <stdlib.h>
 
 
 void myprintf(const char * format, ... ) {
@@ -12,7 +12,6 @@ void myprintf(const char * format, ... ) {
     va_start(args,format);
 
     // print formatting %[flags][width][.precision][length]specifier
-
 
     _Bool wasPercent = 0; // start looking for formatters if a % is found.
     _Bool wasFormat = 0; //figure out if the last thing was a formatter
@@ -22,77 +21,14 @@ void myprintf(const char * format, ... ) {
     //need to implement my own stuff. arrays, binary
 
     while (*format != '\0') {
-        if (format == "%d") { // works!!!!
-            int intArg = va_arg(args,int);
-            int intArgCopy = intArg;
-            int intLength = 0;
-            _Bool isNegative = 0;
-
-            if (intArg < 0) {
-                isNegative = 1;
-                intArg = intArg *  -1;
-                intArgCopy = intArgCopy * -1;
-
-            }
-
-
-            while (intArg!= 0) {
-
-
-                intArg = intArg / 10;
-                intLength ++;
-
-            }
-            char printVal [intLength];
-
-            for (int i = intLength - 1; i > -1; i--) {
-
-                int intVal =  (intArgCopy % 10);
-                char charVal = intVal + '0';
-
-
-                printVal[i] = charVal;
-                intArgCopy = intArgCopy / 10;
-            }
-            if (isNegative) {
-                putchar('-');
-            }
-            for (int i = 0; i < intLength; i++) {
-                putchar(printVal[i]);
-            }
-            wasPercent = 0;
-
-
-
-
-
-        }
-
-        else if (format == "%c") {
-            int charArg = va_arg(args,int);
-            putchar(charArg);
-        }
-
-
-        else if (format == "%s")
-            { // seems to work
-            char * strArg = va_arg(args,char*); // gets the string
-
-            puts(strArg); //prints out the string
-        }
-        else if (format == "%x") { //works
-
-
-        }
-
         //while current character of format we are looking at isn't null, meaning that we haven't reahed the end of the format string yet
-        else {
+
             if (*format == '%' && !(wasPercent)) { //first sign of a modifier
                 wasPercent = 1;
 
             }
 
-            if (wasPercent ) {
+            if (wasPercent) { //if we are in a formatting situation
 
                 if (*format == 'd') {
 
@@ -146,9 +82,12 @@ void myprintf(const char * format, ... ) {
                     wasPercent = 0;
 
                 }
-                else if (*format == 'x') {
+                else if (*format == 'x') { //need to get negative hex working
                     int intArg = va_arg(args,int);
                     int intArgCopy = intArg;
+                    if (intArg < 0) {
+
+                    }
                     int intLength = 0;
                     while (intArg!= 0) {
 
@@ -222,7 +161,11 @@ void myprintf(const char * format, ... ) {
                     wasPercent = 0;
                 }
             }
+        else { //deals with characters that aren't covered by a formatter because they aren't format but should still be printed out
+            putchar(*format);
+
         }
+
         // check modifiers and if the last thing was a format.
         ++format;
     }
@@ -238,7 +181,7 @@ void myprintf(const char * format, ... ) {
 
 int main(void) {
 
-   myprintf("%d %d",50,33);
+   myprintf("%d %d\n",50,33);
     myprintf("%d",-123);
     myprintf("%c",'A');
     myprintf("%s","hello my naejfewwef");
@@ -247,6 +190,8 @@ int main(void) {
     myprintf("%x",12);
     myprintf("%x", 12312);
     myprintf("%x",42);
+    myprintf("%x",-21);
+
 
 
 
