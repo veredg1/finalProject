@@ -18,7 +18,11 @@ void myprintf(const char * format, ... ) {
     _Bool wasFormat = 0; //figure out if the last thing was a formatter
     _Bool isBackSlash = 0; // if it's a backslash that might need to work properly to modify certain things
 
-    //if (format == "%d") {
+    //if (format == "%d") { // works if the integer is less than 10
+       // int intArg = va_arg(args,int);
+        // char printval = intArg + '0';
+        //putchar(printval);
+
 
     //}
 
@@ -97,7 +101,7 @@ void myprintf(const char * format, ... ) {
 
 int main(void) {
    // myprintf("%d %d",50,33);
-    //myprintf("%c",'A');
+    myprintf("%c",'A');
     myprintf("%s","hello my naejfewwef");
 
 
