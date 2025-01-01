@@ -32,7 +32,8 @@ void myprintf(const char * format, ... ) {
 
         }
 
-        if (wasPercent) { //if we are in a formatting situation
+        if (wasPercent) {
+            //if we are in a formatting situation
             // flags (only want to allow one flag in this implementation)
 
             if (*format == '-') {
@@ -251,122 +252,131 @@ void myprintf(const char * format, ... ) {
                 wasPercent = 0;
             }
 
-               else if (*format == 'b') { //signed binary
-                   //signed binary (last bit is 0 if positive, 1 if negative)
-                   int intArg = va_arg(args,int);
-                   int intArgCopy = intArg;
-                   int binLength = 0;
-                   _Bool isNegative = 0;
-                   if (intArg < 0) { //if the number is negative, note that it is
-                       isNegative = 1;
-                       intArg = intArg *  -1;
-                       intArgCopy = intArgCopy * -1;
-                   }
+            else if (*format == 'b') { //signed binary
+                //signed binary (last bit is 0 if positive, 1 if negative)
+                int intArg = va_arg(args,int);
+                int intArgCopy = intArg;
+                int binLength = 0;
+                _Bool isNegative = 0;
+                if (intArg < 0) { //if the number is negative, note that it is
+                    isNegative = 1;
+                    intArg = intArg *  -1;
+                    intArgCopy = intArgCopy * -1;
+                }
 
 
-                   //again use a similar process to that of an integer, except do the work in base 2, not base 10
-                   while (intArg!= 0) {
+                //again use a similar process to that of an integer, except do the work in base 2, not base 10
+                while (intArg!= 0) {
 
 
-                       intArg = intArg / 2;
-                       binLength ++;
+                    intArg = intArg / 2;
+                    binLength ++;
 
-                   }
-                   char printVal [binLength];
+                }
+                char printVal [binLength];
 
-                   for (int i = binLength - 1; i > -1; i--) {
+                for (int i = binLength - 1; i > -1; i--) {
 
-                       int intVal =  (intArgCopy % 2);
-                       char charVal = intVal + '0';
-
-
-                       printVal[i] = charVal;
-                       intArgCopy = intArgCopy / 2;
-                   }
-                   if (isNegative) {
+                    int intVal =  (intArgCopy % 2);
+                    char charVal = intVal + '0';
 
 
-                       putchar('1'); //leading number is 1
-                   }
-                   else { //if it's positive
-                       putchar('0'); //leading number is 0
-                   }
-
-                   for (int i = 0; i < binLength; i++) {
-                       putchar(printVal[i]);
-                   }
+                    printVal[i] = charVal;
+                    intArgCopy = intArgCopy / 2;
+                }
+                if (isNegative) {
 
 
+                    putchar('1'); //leading number is 1
+                }
+                else { //if it's positive
+                    putchar('0'); //leading number is 0
+                }
 
-                   hasFlag = 0;
-                   haswidth = 0;
-                   hasPrecision = 0;
-                   hasLength = 0;
-                   isBackSlash = 0;
-                   wasPercent = 0;
-               }
-            else if (*format != 'q') //array of ints
+                for (int i = 0; i < binLength; i++) {
+                    putchar(printVal[i]);
+                }
+
+
+
+                hasFlag = 0;
+                haswidth = 0;
+                hasPrecision = 0;
+                hasLength = 0;
+                isBackSlash = 0;
+                wasPercent = 0;
+            }
+
+            if (*format == 'q') { //unsigned binary
+                int intArg = va_arg(args,int);
+                int intArgCopy = intArg;
+                int binLength = 0;
+
+                if (intArg < 0) { //if the number is negative, error
+                    puts("Error Negative Number ");
+                    return;
+                }
+
+
+                //again use a similar process to that of an integer, except do the work in base 2, not base 10
+                while (intArg!= 0) {
+
+
+                    intArg = intArg / 2;
+                    binLength ++;
+
+                }
+                char printVal [binLength];
+
+                for (int i = binLength - 1; i > -1; i--) {
+
+                    int intVal =  (intArgCopy % 2);
+                    char charVal = intVal + '0';
+
+
+                    printVal[i] = charVal;
+                    intArgCopy = intArgCopy / 2;
+                }
+
+                for (int i = 0; i < binLength; i++) {
+                    putchar(printVal[i]);
+                }
+
+
+
+                hasFlag = 0;
+                haswidth = 0;
+                hasPrecision = 0;
+                hasLength = 0;
+                isBackSlash = 0;
+                wasPercent = 0;
+
+            }
+            if (*format == 'j') //character array format
             {
-                int * intArg = va_arg(args,int *);
+                char * strArg = va_arg(args,char*); // gets the string
+                putchar('[');
+                while (*strArg != '\0') { //prints out the character array looking like an array of characters
+                    putchar(*strArg);
 
-                //printf("%d",*intArg);
-                // while (*intArg != '\0'){
-                //    int intArgCopy = *intArg;
-                //     int intLength = 0;
-                //     _Bool isNegative = 0;
-                //
-                //     if (*intArg < 0) { //if it's negative, make sure we know it's negative
-                //         isNegative = 1;
-                //         *intArg = *intArg *  -1;
-                //         intArgCopy = intArgCopy * -1; //switch it to positive
-                //
-                //     }
-                //     if (hasFlag) { //check for flags
-                //         if (flag == '+' )
-                //             if ( !(isNegative)) { //if the flag is + and should be used
-                //
-                //                 putchar('+'); //then add a +.
-                //             }
-                //         if (flag == ' ' && !(isNegative)) {
-                //             putchar(' ');
-                //
-                //         }
-                //     }
-                //
-                //
-                //     while (*intArg!= 0) { //while we still have part of the integer left
-                //
-                //
-                //         *intArg = *intArg / 10; //chop it up
-                //         intLength ++; //figure out how long the integer is
-                //
-                //     }
-                //     char printVal [intLength]; //to store the print value
-                //
-                //     for (int i = intLength - 1; i > -1; i--) { //put appropriate values in the integer printout array
-                //         //it's reversed so that the values are inserted from biggest to smallest
-                //
-                //         int intVal =  (intArgCopy % 10); //get the right integer
-                //         char charVal = intVal + '0'; //allows it to print out right in char form
-                //
-                //
-                //         printVal[i] = charVal; //put the integer in the right place in the printout
-                //         intArgCopy = intArgCopy / 10; //look at the next part of the integer
-                //     }
-                //     if (isNegative) {
-                //         putchar('-'); //if it's negative, add a negative sign at the beginning
-                //     }
-                //
-                //     for (int i = 0; i < intLength; i++) { //print out the int
-                //         putchar(printVal[i]);
-                //     }
-                //
-                //     *intArg ++;
-                // }
+                    *strArg ++;
+                    if (!(*strArg == '\0'))
+                        {
+                        putchar(',');
+                        }
+
+                }
+                putchar(']');
+
+                hasFlag = 0;
+                haswidth = 0;
+                hasPrecision = 0;
+                hasLength = 0;
+                isBackSlash = 0;
+                wasPercent = 0;
 
             }
         }
-
 
 
         else { //deals with characters that aren't covered by a formatter because they aren't format but should still be printed out

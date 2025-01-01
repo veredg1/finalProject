@@ -41,12 +41,8 @@ int main(void) {
     //multiple types in one print
     myprintf("char %c int %d\n",'A',32834);
 
-    int test[4];
-    test[0] = 1;
-    test[1] = 123;
-    test[2] = 12341;
-    test[3] = 23;
-    myprintf("%q",test);
+    myprintf("%q\n",1134);
+    myprintf("%j","hehehe");
 
 
 
