@@ -18,7 +18,7 @@ int main(void) {
     myprintf("%d\n",-123);
     myprintf("%d\n",9);
     myprintf("%d\n",123);
-    myprintf("%0-d",123);
+    myprintf("%0-d",123); //flags test
 
     //char tests
     myprintf("%c\n",'A');
@@ -30,7 +30,7 @@ int main(void) {
     //hexidecimal tests
     myprintf("%x\n",12);
     myprintf("%x \n", 12312);
-    myprintf("%x\n",42);
+    myprintf("%#x \n",42); //hex flag test
     myprintf("%x negative hex\n",-21);
 
     //signed magnitude binary tests

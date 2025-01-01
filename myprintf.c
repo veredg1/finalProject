@@ -11,7 +11,6 @@ void myprintf(const char * format, ... ) {
     va_list args;
     va_start(args,format);
 
-    // print formatting %[flags][width][.precision][length]specifier - specifier mostly done
 
     _Bool wasPercent = 0; // start looking for formatters if a % is found.
     _Bool hasFlag = 0; //was there a flag
@@ -19,7 +18,6 @@ void myprintf(const char * format, ... ) {
     _Bool haswidth = 0; //is there width thingy?
     _Bool hasPrecision = 0; //is there precision thingy?
     _Bool hasLength = 0; //is there a length modification
-    _Bool isBackSlash = 0; // if it's a backslash that might need to work properly to modify certain things
 
 
 
@@ -52,8 +50,9 @@ void myprintf(const char * format, ... ) {
                 hasFlag = 1;
 
             }
-            if (*format == '#') {
+            if (*format == '#') { //prints out 0x for hex
                 hasFlag = 1;
+                flag = '#';
 
             }
             if (*format == '0') {
@@ -129,7 +128,7 @@ void myprintf(const char * format, ... ) {
                 haswidth = 0;
                 hasPrecision = 0;
                 hasLength = 0;
-                isBackSlash = 0;
+
                 wasPercent = 0;
             }
             else if (*format == 'c') { //if it's a char
@@ -139,7 +138,7 @@ void myprintf(const char * format, ... ) {
                 haswidth = 0;
                 hasPrecision = 0;
                 hasLength = 0;
-                isBackSlash = 0;
+
                 wasPercent = 0;
 
             }
@@ -151,7 +150,7 @@ void myprintf(const char * format, ... ) {
                 haswidth = 0;
                 hasPrecision = 0;
                 hasLength = 0;
-                isBackSlash = 0;
+
                 wasPercent = 0;
 
             }
@@ -248,7 +247,7 @@ void myprintf(const char * format, ... ) {
                 haswidth = 0;
                 hasPrecision = 0;
                 hasLength = 0;
-                isBackSlash = 0;
+
                 wasPercent = 0;
             }
 
@@ -303,7 +302,6 @@ void myprintf(const char * format, ... ) {
                 haswidth = 0;
                 hasPrecision = 0;
                 hasLength = 0;
-                isBackSlash = 0;
                 wasPercent = 0;
             }
 
@@ -348,7 +346,6 @@ void myprintf(const char * format, ... ) {
                 haswidth = 0;
                 hasPrecision = 0;
                 hasLength = 0;
-                isBackSlash = 0;
                 wasPercent = 0;
 
             }
@@ -372,7 +369,6 @@ void myprintf(const char * format, ... ) {
                 haswidth = 0;
                 hasPrecision = 0;
                 hasLength = 0;
-                isBackSlash = 0;
                 wasPercent = 0;
 
             }
